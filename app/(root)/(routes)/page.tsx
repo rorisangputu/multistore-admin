@@ -1,17 +1,17 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client"
-import Modal from "@/components/modal"
+
+import { useStoreModal } from "@/hooks/use-store-modal"
+import { useEffect } from "react"
+
 
 
 const setupPage = () => {
+  
+
   return (
     <div>
-      <Modal
-        title="Create your store"
-        description="Open a new store now."
-        isOpen
-        onClose={() => { }}>
-        This is the store modal
-      </Modal>
+      <h1>Ola</h1>
     </div>
   )
 }
