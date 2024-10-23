@@ -18,7 +18,8 @@ interface ModalProps{
     children? : React.ReactNode
 }
 
-const Modal = ({title, description, isOpen, onClose, children} : ModalProps) => {
+const Modal = ({ title, description, children }: ModalProps) => {
+    
   return (
         <Dialog>
             <DialogTrigger>Create Store</DialogTrigger>
