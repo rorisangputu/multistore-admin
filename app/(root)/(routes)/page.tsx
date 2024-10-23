@@ -1,10 +1,17 @@
+"use client"
+import Modal from "@/components/modal"
 
 
 const setupPage = () => {
   return (
     <div>
-      
-      <h1>This is the dashboards</h1>
+      <Modal
+        title="Create your store"
+        description="Open a new store now."
+        isOpen
+        onClose={() => { }}>
+        This is the store modal
+      </Modal>
     </div>
   )
 }
