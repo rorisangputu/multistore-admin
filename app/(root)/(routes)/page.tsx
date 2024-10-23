@@ -1,11 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client"
 
-import { useStoreModal } from "@/hooks/use-store-modal"
-import { useEffect } from "react"
-
-
-
 const setupPage = () => {
   
 
