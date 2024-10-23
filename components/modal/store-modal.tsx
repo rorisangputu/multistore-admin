@@ -56,7 +56,6 @@ export const StoreModal = () => {
                             )} />
                             <div className="pt-6 space-x-2 flex items-center justify-end w-full">
                                 <Button disabled={isLoading} type="submit">Create</Button>
-                                <Button disabled={isLoading} type="button" variant={"destructive"}>Cancel</Button>
                             </div>
                         </form>
                     </Form>
