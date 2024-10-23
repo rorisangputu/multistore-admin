@@ -1,10 +1,11 @@
+
 interface SetupLayoutProps{
     children: React.ReactNode
 }
 
 const SetupLayout = ({children} : SetupLayoutProps) => {
   return (
-      <div>
+    <div>
          {children} 
     </div>
   )
