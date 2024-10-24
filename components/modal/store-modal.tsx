@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage,  } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import axios from 'axios'
 
 const formSchema = z.object({
     name: z.string().min(2, {message: "Store name should be minimum 2 characters"})
@@ -19,7 +20,7 @@ export const StoreModal = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const storeModal = useStoreModal()
 
-    const [isLoading, seIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -28,7 +29,15 @@ export const StoreModal = () => {
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+        try {
+            setIsLoading(true);
+            const response = await axios.post("/api/stores")
+            
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
