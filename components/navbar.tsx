@@ -1,4 +1,5 @@
 import { SignedIn, UserButton } from "@clerk/nextjs"
+import MainNav from "./MainNav"
 
 
 const Navbar = () => {
@@ -8,6 +9,7 @@ const Navbar = () => {
               <p>This is store switcher</p>
 
               {/* Routes */}
+              <MainNav/>
 
               {/* User profile */}
             <div className="ml-auto">
