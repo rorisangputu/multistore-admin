@@ -10,9 +10,11 @@ const Navbar = () => {
               {/* Routes */}
 
               {/* User profile */}
-            <SignedIn>
-                <UserButton  afterSwitchSessionUrl="/"/>
-            </SignedIn>
+            <div className="ml-auto">
+                <SignedIn>
+                    <UserButton  afterSwitchSessionUrl="/"/>
+                </SignedIn>
+            </div>
           </div>
     </div>
   )
