@@ -1,12 +1,13 @@
 import { SignedIn, UserButton } from "@clerk/nextjs"
-import MainNav from "./MainNav"
+import MainNav from "@/components/MainNav"
+import StoreSwitcher from "@/components/StoreSwitcher"
 
 
 const Navbar = () => {
   return (
       <div className="border-b">
           <div className="flex h-16 items-center px-4">
-              <p>This is store switcher</p>
+              <StoreSwitcher/>
 
               {/* Routes */}
               <MainNav/>
