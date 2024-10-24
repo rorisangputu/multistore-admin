@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import Navbar from "@/components/navbar";
 import { db } from "@/lib/firebase";
 import { Store } from "@/types-db";
 import { auth } from "@clerk/nextjs/server"
@@ -39,7 +40,7 @@ const DashboardLayout = async ({ children, params }: DashboardLayoutProps) => {
 
   return (
       <>
-          <h1>This is the Nav</h1>
+          <Navbar/>
           {children}
       </>
   )
