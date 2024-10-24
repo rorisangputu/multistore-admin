@@ -41,9 +41,7 @@ export default function RootLayout({
           <SignedOut>
             <SignInButton />
           </SignedOut>
-          <SignedIn>
-            <UserButton  afterSwitchSessionUrl="/"/>
-          </SignedIn>
+
           <ToastProvider/>
           <ModalProvider/>
         {children}
