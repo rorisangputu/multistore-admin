@@ -13,6 +13,7 @@ interface DashboardLayoutProps{
 
 const DashboardLayout = async ({ children, params }: DashboardLayoutProps) => {
     const { userId } = await auth();
+    const {storeId} = params
 
     if (!userId) {
         redirect("/sign-in")
@@ -22,7 +23,7 @@ const DashboardLayout = async ({ children, params }: DashboardLayoutProps) => {
         query(
             collection(db, "stores"),
             where("userId", "==", userId),
-            where("id", "==", params.storeId)
+            where("id", "==", storeId)
         )
     )
 
@@ -38,7 +39,7 @@ const DashboardLayout = async ({ children, params }: DashboardLayoutProps) => {
 
   return (
       <>
-          <h1>This is the Nav: {params.storeId}</h1>
+          <h1>This is the Nav: {storeId}</h1>
           {children}
       </>
   )
