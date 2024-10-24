@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { db } from "@/lib/firebase";
+import { Store } from "@/types-db";
 import { auth } from "@clerk/nextjs/server"
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { redirect } from "next/navigation";
@@ -24,10 +26,21 @@ const DashboardLayout = async ({ children, params }: DashboardLayoutProps) => {
         )
     )
 
+    let store;
+
+    storeSnap.forEach((doc) => {
+       store = doc.data() as Store
+    });
+
+    if (!store) {
+        redirect("/");
+    }
+
   return (
-      <div>
-          
-    </div>
+      <>
+          <h1>This is the Nav: {params.storeId}</h1>
+          {children}
+      </>
   )
 }
 
