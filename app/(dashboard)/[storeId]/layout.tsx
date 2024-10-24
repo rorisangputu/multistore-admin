@@ -27,7 +27,7 @@ const DashboardLayout = async ({ children, params }: DashboardLayoutProps) => {
         )
     )
 
-    let store;
+    let store: Store | null = null;
 
     storeSnap.forEach((doc) => {
        store = doc.data() as Store
@@ -39,7 +39,7 @@ const DashboardLayout = async ({ children, params }: DashboardLayoutProps) => {
 
   return (
       <>
-          <h1>This is the Nav: {storeId}</h1>
+          <h1>This is the Nav</h1>
           {children}
       </>
   )
