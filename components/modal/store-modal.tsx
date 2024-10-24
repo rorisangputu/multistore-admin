@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage,  } from
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from 'axios'
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
     name: z.string().min(2, {message: "Store name should be minimum 2 characters"})
@@ -31,10 +32,15 @@ export const StoreModal = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setIsLoading(true);
-            const response = await axios.post("/api/stores")
+    
+            const response = await axios.post("/api/stores", values);
+            if (response.status == 200) {
+                toast.success("Store created");
+                console.log("Successful: ",response)
+            }
             
         } catch (error) {
-            console.log(error)
+            toast.error("Something went wrong");
         } finally {
             setIsLoading(false);
         }
