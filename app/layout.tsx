@@ -9,6 +9,7 @@ import {
   UserButton
 } from '@clerk/nextjs'
 import { ModalProvider } from "@/providers/modalProvider";
+import { ToastProvider } from "@/providers/toastProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -43,6 +44,7 @@ export default function RootLayout({
           <SignedIn>
             <UserButton  afterSwitchSessionUrl="/"/>
           </SignedIn>
+          <ToastProvider/>
           <ModalProvider/>
         {children}
       </body>
