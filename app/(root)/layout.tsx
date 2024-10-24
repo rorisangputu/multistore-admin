@@ -17,7 +17,7 @@ const SetupLayout = async ({ children }: SetupLayoutProps) => {
   }
   
   const storeSnap = await getDocs(
-    query(collection(db, "Stores"), where("userId", "==", userId))
+    query(collection(db, "stores"), where("userId", "==", userId))
   )
 
   let store = null as any;
