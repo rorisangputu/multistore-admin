@@ -1,4 +1,4 @@
-import React from 'react'
+"use client"
 
 interface HeadingProps{
   title: string,
@@ -7,7 +7,10 @@ interface HeadingProps{
 
 const Heading = ({title, description} : HeadingProps) => {
   return (
-    <div>Head</div>
+    <div className="w-full">
+      <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
+      <p className="text-sm text-muted-foreground">{description}</p>
+    </div>
   )
 }
 
