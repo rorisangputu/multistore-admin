@@ -29,8 +29,8 @@ const Modal = ({ title, description, children }: ModalProps) => {
                     <DialogDescription>
                         {description}
                     </DialogDescription>
-              </DialogHeader>
-              <div>{children}</div>
+                </DialogHeader>
+                <div>{children}</div>
             </DialogContent>
         </Dialog>
   )
