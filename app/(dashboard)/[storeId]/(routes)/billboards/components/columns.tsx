@@ -1,27 +1,32 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { CellImage } from "./cell-image";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Billboard = {
+export type BillboardColumns = {
   id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+  label: string;
+  imageUrl: string;
+  createdAt: string;
 };
 
-export const Columns: ColumnDef<Billboard>[] = [
+export const Columns: ColumnDef<BillboardColumns>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "imageUrl",
+    header: "Image",
+    cell: ({ row }) => {
+      const { imageUrl } = row.original;
+      return <CellImage imageUrl={imageUrl} />;
+    },
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "label",
+    header: "Name",
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    accessorKey: "createdAt",
+    header: "Date",
   },
 ];
