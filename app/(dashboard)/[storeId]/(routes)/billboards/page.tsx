@@ -8,6 +8,8 @@ const BillboardsIndex = async ({ params }: { params: { storeId: string } }) => {
     await getDocs(collection(doc(db, "stores", params.storeId), "billboards"))
   ).docs.map((doc) => doc.data()) as Billboards[];
 
+  console.log(billboardsData);
+
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
