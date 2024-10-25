@@ -1,5 +1,6 @@
 "use client"
 
+import ApiAlert from "@/components/api-alert"
 import Heading from "@/components/Heading"
 import AlertModal from "@/components/modal/alert-modal"
 import { Button } from "@/components/ui/button"
@@ -74,7 +75,6 @@ const SettingsForm = ({ initialData }: SettinsgFormProps) => {
 
   return (
     <>  
-        
         <div className="flex items-center justify-center">
             <Heading title="Settings" description="Manage Store preferences" />
             <div className="bg-red-600 flex items-center px-5 gap-2 text-white py-2 ">
@@ -103,6 +103,9 @@ const SettingsForm = ({ initialData }: SettinsgFormProps) => {
                 <Button disabled={isLoading} type="submit">Save Changes</Button>
             </form>
         </Form>
+        <Separator />
+        <ApiAlert title="Test" description="test desc" variant="public"/> 
+        
     </>
   )
 }
