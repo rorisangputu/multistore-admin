@@ -54,9 +54,14 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
 
     try {
       setIsLoading(true);
-      const response = await axios.patch(`/api/stores/${params.storeId}`, data);
+      if (initialData) {
+        await axios.patch(`/api/${params.storeId}/billboards`, data);
+      } else {
+        await axios.post(`/api/${params.storeId}/billboards`, data);
+      }
       toast.success(toastMessage);
       router.refresh();
+      router.push(`/${params.storeId}/billboards`);
     } catch (error) {
       toast.error("Unable to update store name");
     } finally {
