@@ -1,6 +1,7 @@
 "use client"
 
 import Heading from "@/components/Heading";
+import ImageUpload from "@/components/imageUpload";
 import AlertModal from "@/components/modal/alert-modal";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -88,7 +89,19 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
         </div>
         <Separator />
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
+                    <FormField
+                        control={form.control} name="imageUrl" render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Image</FormLabel>
+                                <FormControl>
+                                    <ImageUpload
+                                    
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
                 <div className="grid grid-cols-3 gap-8">
                     <FormField control={form.control} name="label" render={({ field }) => (
                         <FormItem>
