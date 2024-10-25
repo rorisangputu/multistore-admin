@@ -96,7 +96,10 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                                 <FormLabel>Image</FormLabel>
                                 <FormControl>
                                     <ImageUpload
-                                    
+                                      value={field.value ? [field.value] : []}
+                                      disabled={isLoading}
+                                      onChange={() => { }}
+                                      onRemove={() => { }}
                                     />
                                 </FormControl>
                             </FormItem>
