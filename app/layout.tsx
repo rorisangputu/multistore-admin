@@ -43,7 +43,6 @@ export default function RootLayout({
           </SignedOut>
 
           <ToastProvider/>
-          <ModalProvider/>
         {children}
       </body>
     </html>
