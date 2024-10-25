@@ -14,9 +14,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { storage } from "@/lib/firebase";
 import { Billboards } from "@/types-db";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { deleteObject, ref } from "firebase/storage";
 import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -55,7 +57,10 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
     try {
       setIsLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/billboards`, data);
+        await axios.patch(
+          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          data
+        );
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
@@ -68,16 +73,20 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
       setIsLoading(false);
     }
   };
+
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.delete(`/api/stores/${params.storeId}`);
+      const { imageUrl } = form.getValues();
+      await deleteObject(ref(storage, imageUrl)).then(async () => {
+        await axios.delete(
+          `/api/${params.storeId}/billboards/${params.billboardId}`
+        );
+      });
 
-      if (response) {
-        toast.success("Store removed");
-        router.refresh();
-        router.push("/");
-      }
+      toast.success("Billboard removed");
+      router.refresh();
+      router.push(`/${params.storeId}/billboards`);
     } catch (error) {
       toast.error("Unable to delete store");
     } finally {
