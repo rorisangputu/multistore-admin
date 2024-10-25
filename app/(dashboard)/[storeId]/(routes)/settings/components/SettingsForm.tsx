@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import { useOrigin } from "@/hooks/use-origin"
 import { Store } from "@/types-db"
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
@@ -38,6 +39,8 @@ const SettingsForm = ({ initialData }: SettinsgFormProps) => {
     const [open, setOpen] = useState(false);
     const params = useParams();
     const router = useRouter();
+    const origin = useOrigin();
+
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         //console.log(data);
@@ -104,7 +107,7 @@ const SettingsForm = ({ initialData }: SettinsgFormProps) => {
             </form>
         </Form>
         <Separator />
-        <ApiAlert title="Test" description="test desc" variant="public"/> 
+          <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeId}`} variant="public"/> 
         
     </>
   )
