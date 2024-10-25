@@ -5,7 +5,7 @@ import { Store } from "@/types-db";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown, StoreIcon } from "lucide-react";
+import { Check, ChevronsUpDown, PlusCircle, StoreIcon } from "lucide-react";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import StoreListItem from "./store-list-item";
@@ -105,7 +105,10 @@ const StoreSwitcher = ({ items }: StoreSwitcherProps) => {
             <CommandSeparator />
             <CommandList>
                 <CommandGroup>
-                    <div className="mr-2 px-2 py-1">
+                    <div className="mr-2 px-2 py-1 flex items-center bg-gray-50 
+                            cursor-pointer text-muted-foreground hover:text-primary gap-2"
+                        >
+                        <PlusCircle className="h-4 w-4" />
                         <ModalProvider/>
                     </div>     
                 </CommandGroup>
