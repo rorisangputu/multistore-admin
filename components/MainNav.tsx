@@ -12,19 +12,19 @@ const MainNav = ({ className, ...props }: React.AllHTMLAttributes<HTMLElement>) 
         {
             href: `/${params.storeId}`,
             label: "Overview",
-            active: `/${params.storeId}`
+            active: pathname === `/${params.storeId}`
         },
         {
             href: `/${params.storeId}/settings`,
             label: "Settings",
-            active: `/${params.storeId}/settings`
+            active: pathname === `/${params.storeId}/settings`
         }
     ]
 
   return (
     <nav className={cn("flex items-center space-x-4 lg:space-x-6 pl-6")}>
           {routes.map(route => (
-              <Link key={route.href} href={route.href} className={cn("text-sm font-medium transition-colors hover:text-primary", route.active ? "text-black dark:text-white" : "text-muted-foreground")}>
+              <Link key={route.href} href={route.href} className={cn("text-sm font-semibold transition-colors hover:text-primary", route.active ? "text-black dark:text-white" : "text-muted-foreground")}>
               {route.label}
               </Link>
        ))}
