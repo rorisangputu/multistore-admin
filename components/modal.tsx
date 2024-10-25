@@ -22,7 +22,7 @@ const Modal = ({ title, description, children }: ModalProps) => {
     
   return (
         <Dialog>
-            <DialogTrigger>Create Store</DialogTrigger>
+            <DialogTrigger className="text-sm">Create Store</DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
