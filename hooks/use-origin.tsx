@@ -6,7 +6,7 @@ export const useOrigin = () => {
     const origin = typeof window !== "undefined" && window.location.origin ? window.location.origin : "";
 
     useEffect(() => {
-        setMounted(false);
+        setMounted(true);
     }, []);
 
     if (!mounted) {
