@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Check, ChevronsUpDown, StoreIcon } from "lucide-react";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
+import StoreListItem from "./store-list-item";
+import { CommandSeparator } from "cmdk";
+import { ModalProvider } from "@/providers/modalProvider";
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>;
 
@@ -72,19 +75,41 @@ const StoreSwitcher = ({ items }: StoreSwitcherProps) => {
                     className="flex-1 w-full outline-none"
                 />                   
             </div>
-          <CommandList>
-            <CommandEmpty>No Stores found.</CommandEmpty>
-            <CommandGroup heading="Stores">
-             {
-                searchTerm === "" ? (
-                    formattedStores.map(item => (
-                       <li></li> 
-                    ))
-                ) :
-                (<></>)
-             }
-            </CommandGroup>
-          </CommandList>
+            <CommandList>
+                <CommandGroup heading="Stores">
+                {
+                    searchTerm === "" ? (
+                        formattedStores.map((item, i )=> (
+                            <StoreListItem
+                                store={item}
+                                key={i}
+                                onSelect={onStoreSelect}
+                                isChecked={currentStore?.value == item.value}
+                            />
+                        ))
+                    ) :
+                    filtered.length > 0 ? (
+                        filtered.map((item, i )=> (
+                            <StoreListItem
+                                store={item}
+                                key={i}
+                                onSelect={onStoreSelect}
+                                isChecked={currentStore?.value == item.value}
+                            />
+                        ))
+                    ) :
+                    <CommandEmpty>No Stores found.</CommandEmpty>
+                }
+                </CommandGroup>
+            </CommandList>
+            <CommandSeparator />
+            <CommandList>
+                <CommandGroup>
+                    <div className="mr-2 px-2 py-1">
+                        <ModalProvider/>
+                    </div>     
+                </CommandGroup>
+            </CommandList>      
         </Command>
       </PopoverContent>
     </Popover>
