@@ -1,26 +1,26 @@
 import { db } from "@/lib/firebase";
-import { Kitchen } from "@/types-db";
+import { Cuisines } from "@/types-db";
 import { doc, getDoc } from "firebase/firestore";
-import KitchenForm from "./components/CuisineForm";
+import CuisineForm from "./components/CuisineForm";
 
-const KitchenPage = async ({
+const CuisinePage = async ({
   params,
 }: {
-  params: { storeId: string; kitchenId: string };
+  params: { storeId: string; cuisineId: string };
 }) => {
-  const kitchen = (
+  const cuisine = (
     await getDoc(
-      doc(db, "stores", params.storeId, "kitchens", params.kitchenId)
+      doc(db, "stores", params.storeId, "cuisines", params.cuisineId)
     )
-  ).data() as Kitchen;
+  ).data() as Cuisines;
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <KitchenForm initialData={kitchen} />
+        <CuisineForm initialData={cuisine} />
       </div>
     </div>
   );
 };
 
-export default KitchenPage;
+export default CuisinePage;
