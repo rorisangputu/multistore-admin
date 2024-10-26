@@ -1,11 +1,14 @@
 "use client";
 
 import Heading from "@/components/Heading";
+import ImagesUpload from "@/components/ImagesUpload";
 import AlertModal from "@/components/modal/alert-modal";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -60,7 +63,17 @@ const ProductForm = ({
 }: ProductFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: {
+      name: "",
+      price: 0,
+      images: [],
+      isFeatured: false,
+      isArchived: false,
+      category: "",
+      size: "",
+      cuisine: "",
+      kitchen: "",
+    },
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -130,6 +143,29 @@ const ProductForm = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-8"
         >
+          {/* Images */}
+          <FormField
+            control={form.control}
+            name="images"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Image</FormLabel>
+                <FormControl>
+                  <ImagesUpload
+                    value={field.value.map((image) => image.url)}
+                    onChange={(urls) => {
+                      field.onChange(urls.map((url) => ({ url })));
+                    }}
+                    onRemove={(url) => {
+                      field.onChange(
+                        field.value.filter((current) => current.url !== url)
+                      );
+                    }}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
           <div className="grid grid-cols-3 gap-8">
             {/* Product Name */}
             <FormField
@@ -171,7 +207,7 @@ const ProductForm = ({
             {/* Category */}
             <FormField
               control={form.control}
-              name="name"
+              name="category"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
@@ -187,7 +223,7 @@ const ProductForm = ({
                       </SelectTrigger>
                       <SelectContent>
                         {categories.map((category) => (
-                          <SelectItem key={category.id} value={category.id}>
+                          <SelectItem key={category.id} value={category.name}>
                             {category.name}
                           </SelectItem>
                         ))}
@@ -200,7 +236,7 @@ const ProductForm = ({
             {/* Kitchen */}
             <FormField
               control={form.control}
-              name="name"
+              name="kitchen"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Kitchen</FormLabel>
@@ -216,7 +252,7 @@ const ProductForm = ({
                       </SelectTrigger>
                       <SelectContent>
                         {kitchens.map((kitchen) => (
-                          <SelectItem key={kitchen.id} value={kitchen.id}>
+                          <SelectItem key={kitchen.id} value={kitchen.name}>
                             {kitchen.name}
                           </SelectItem>
                         ))}
@@ -229,7 +265,7 @@ const ProductForm = ({
             {/* Cuisine */}
             <FormField
               control={form.control}
-              name="name"
+              name="cuisine"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Cuisine</FormLabel>
@@ -245,7 +281,7 @@ const ProductForm = ({
                       </SelectTrigger>
                       <SelectContent>
                         {cuisines.map((cuisine) => (
-                          <SelectItem key={cuisine.id} value={cuisine.id}>
+                          <SelectItem key={cuisine.id} value={cuisine.name}>
                             {cuisine.name}
                           </SelectItem>
                         ))}
@@ -258,7 +294,7 @@ const ProductForm = ({
             {/* Size */}
             <FormField
               control={form.control}
-              name="name"
+              name="size"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Size</FormLabel>
@@ -274,13 +310,57 @@ const ProductForm = ({
                       </SelectTrigger>
                       <SelectContent>
                         {sizes.map((size) => (
-                          <SelectItem key={size.id} value={size.id}>
+                          <SelectItem key={size.id} value={size.name}>
                             {size.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </FormControl>
+                </FormItem>
+              )}
+            />
+
+            {/* isFeatured */}
+            <FormField
+              control={form.control}
+              name="isFeatured"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>isFeatured</FormLabel>
+                    <FormDescription>
+                      Adds product to featured page
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            {/* isArchived */}
+            <FormField
+              control={form.control}
+              name="isArchived"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>isArchived</FormLabel>
+                    <FormDescription>
+                      Removes product from client page
+                    </FormDescription>
+                  </div>
                 </FormItem>
               )}
             />
