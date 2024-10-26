@@ -9,11 +9,11 @@ import { useParams, useRouter } from "next/navigation";
 import { Columns, CuisineColumns } from "./columns";
 import ApiList from "@/components/api-list";
 
-interface KitchenClientProps {
+interface CuisineClientProps {
   data: CuisineColumns[];
 }
 
-const KitchenClient = ({ data }: KitchenClientProps) => {
+const CuisineClient = ({ data }: CuisineClientProps) => {
   const params = useParams();
   const router = useRouter();
 
@@ -42,4 +42,4 @@ const KitchenClient = ({ data }: KitchenClientProps) => {
   );
 };
 
-export default KitchenClient;
+export default CuisineClient;
