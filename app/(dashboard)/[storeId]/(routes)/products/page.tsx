@@ -5,6 +5,7 @@ import { ProductColumns } from "./components/columns";
 import { format } from "date-fns";
 
 import ProductClient from "./components/client";
+import { formatter } from "@/lib/utils";
 
 const ProductIndex = async ({ params }: { params: { storeId: string } }) => {
   const productsData = (
@@ -15,7 +16,14 @@ const ProductIndex = async ({ params }: { params: { storeId: string } }) => {
   const formattedProducts: ProductColumns[] = productsData.map((item) => ({
     id: item.id,
     name: item.name,
-    value: item.value,
+    price: formatter.format(item.price),
+    kitchen: item.kitchen,
+    category: item.category,
+    cuisine: item.cuisine,
+    isArchived: item.isArchived,
+    isFeatured: item.isFeatured,
+    images: item.images,
+    size: item.size,
     createdAt: item.createdAt
       ? format(item.createdAt.toDate(), "do MMMM, yyyy")
       : "",
