@@ -20,6 +20,7 @@ const ApiList = ({ entityName, entityNameId }: ApiListProps) => {
         title="GET"
         variant="public"
         description={`${baseUrl}/${entityName}`}
+        
       />
       <ApiAlert
         title="GET"
