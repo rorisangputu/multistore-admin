@@ -42,7 +42,6 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
   const params = useParams();
   const router = useRouter();
 
