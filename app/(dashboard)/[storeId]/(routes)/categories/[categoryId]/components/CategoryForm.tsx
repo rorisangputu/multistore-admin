@@ -62,18 +62,30 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
 
     try {
       setIsLoading(true);
+
+      const { billboardId: formBillId } = form.getValues();
+      const matchingBillboardIds = billboards.find(
+        (item) => item.id === formBillId
+      );
+
       if (initialData) {
         await axios.patch(
           `/api/${params.storeId}/categories/${params.categoryId}`,
-          data
+          {
+            ...data,
+            billboardLabel: matchingBillboardIds?.label,
+          }
         );
       } else {
-        await axios.post(`/api/${params.storeId}/categories`, data);
+        await axios.post(`/api/${params.storeId}/categories`, {
+          ...data,
+          billboardLabel: matchingBillboardIds?.label,
+        });
       }
       toast.success(toastMessage);
       router.push(`/${params.storeId}/categories`);
     } catch (error) {
-      toast.error("Unable to update category name");
+      toast.error("Error handling category name");
     } finally {
       router.refresh();
       setIsLoading(false);
