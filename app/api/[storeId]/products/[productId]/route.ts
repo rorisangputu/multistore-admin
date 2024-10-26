@@ -160,3 +160,28 @@ export const DELETE = async (req: Request,
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
+
+export const GET = async (req: Request,
+    { params }:
+        { params: { storeId: string, productId: string } }) =>
+{
+    try {
+        
+        if (!params.storeId) {
+            return new NextResponse("Unauthorised", {status: 400})  
+        }
+        if (!params.productId) {
+            return new NextResponse("Unauthorised", {status: 400})  
+        }
+
+        const productData = (
+            await getDoc(doc(db, "stores", params.storeId, "products", params.productId))   
+        ).data() as Product
+
+        return NextResponse.json(productData);
+        
+    } catch (error) {
+        console.log(`PRODUCT_GET:${error}`)
+        return new NextResponse("Internal Server Error", {status: 500})
+    }
+}

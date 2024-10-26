@@ -24,8 +24,9 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
             category,
             size,
             kitchen,
-            cuisine
-         } = body;
+            cuisine,
+        } = body;
+        
         if (!name) {
             return new NextResponse("Product name is missing", {status: 400})
         }
