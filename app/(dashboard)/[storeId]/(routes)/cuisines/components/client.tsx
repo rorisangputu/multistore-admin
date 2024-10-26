@@ -21,11 +21,11 @@ const CuisineClient = ({ data }: CuisineClientProps) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Kitchens (${data.length})`}
-          description="Manage kitchens here"
+          title={`Cuisines (${data.length})`}
+          description="Manage cuisines here"
         />
         <Button
-          onClick={() => router.push(`/${params.storeId}/kitchens/create`)}
+          onClick={() => router.push(`/${params.storeId}/cuisines/create`)}
         >
           <Plus className="h-4 w-4" />
           Add New
@@ -35,9 +35,9 @@ const CuisineClient = ({ data }: CuisineClientProps) => {
       <Separator />
       <DataTable columns={Columns} data={data} />
 
-      <Heading title="API" description="API Calls for Kitchens" />
+      <Heading title="API" description="API Calls for Cuisines" />
       <Separator />
-      <ApiList entityName="kitchens" entityNameId="kitchenId" />
+      <ApiList entityName="cuisines" entityNameId="cuisineId" />
     </>
   );
 };
