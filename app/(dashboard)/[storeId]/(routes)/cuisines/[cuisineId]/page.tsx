@@ -1,7 +1,7 @@
 import { db } from "@/lib/firebase";
 import { Kitchen } from "@/types-db";
 import { doc, getDoc } from "firebase/firestore";
-import KitchenForm from "./components/KitchenForm";
+import KitchenForm from "./components/CuisineForm";
 
 const KitchenPage = async ({
   params,

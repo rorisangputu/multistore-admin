@@ -56,16 +56,16 @@ const CuisineForm = ({ initialData }: CuisineFormProps) => {
 
       if (initialData) {
         await axios.patch(
-          `/api/${params.storeId}/kitchens/${params.kitchenId}`,
+          `/api/${params.storeId}/cuisines/${params.cuisineId}`,
           data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/kitchens`, data);
+        await axios.post(`/api/${params.storeId}/cuisines`, data);
       }
       toast.success(toastMessage);
-      router.push(`/${params.storeId}/kitchens`);
+      router.push(`/${params.storeId}/cuisines`);
     } catch (error) {
-      toast.error("Error handling kitchens name");
+      toast.error("Error handling Cuisine name");
     } finally {
       router.refresh();
       setIsLoading(false);
@@ -75,12 +75,12 @@ const CuisineForm = ({ initialData }: CuisineFormProps) => {
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(`/api/${params.storeId}/kitchens/${params.kitchenId}`);
+      await axios.delete(`/api/${params.storeId}/cuisines/${params.cuisineId}`);
 
-      toast.success("Kitchen removed");
-      router.push(`/${params.storeId}/kitchens`);
+      toast.success("Cuisine removed");
+      router.push(`/${params.storeId}/cuisines`);
     } catch (error) {
-      toast.error("Unable to delete kitchens");
+      toast.error("Unable to delete cuisine");
     } finally {
       router.refresh();
       setIsLoading(false);
@@ -116,7 +116,7 @@ const CuisineForm = ({ initialData }: CuisineFormProps) => {
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Kitchen"
+                      placeholder="Cuisine Name"
                       {...field}
                     />
                   </FormControl>
@@ -131,7 +131,11 @@ const CuisineForm = ({ initialData }: CuisineFormProps) => {
                 <FormItem>
                   <FormLabel>Value</FormLabel>
                   <FormControl>
-                    <Input disabled={isLoading} placeholder="Food" {...field} />
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Cuisine"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
