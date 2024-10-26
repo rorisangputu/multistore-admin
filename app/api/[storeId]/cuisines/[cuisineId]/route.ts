@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import {  Kitchen } from "@/types-db";
+import {  Cuisines } from "@/types-db";
 import { auth } from "@clerk/nextjs/server";
 import { deleteDoc, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 
 export const PATCH = async (req: Request,
     { params }:
-        { params: { storeId: string, kitchenId: string } }) =>
+        { params: { storeId: string, cuisineId: string } }) =>
 {
     
     try {
@@ -21,7 +21,7 @@ export const PATCH = async (req: Request,
 
         const { name, value } = body;
         if (!name) {
-            return new NextResponse("Size name is missing", {status: 400})
+            return new NextResponse("Cuisine name is missing", {status: 400})
         }
         if (!value) {
             return new NextResponse("Value is missing", {status: 400})
@@ -33,8 +33,8 @@ export const PATCH = async (req: Request,
             return new NextResponse("Store Id is missing", {status: 400})  
         }
 
-        if (!params.kitchenId) {
-            return new NextResponse("Size Id is missing", {status: 400})  
+        if (!params.cuisineId) {
+            return new NextResponse("Cuisine Id is missing", {status: 400})  
         }
 
         const store = await getDoc(doc(db, "stores", params.storeId));
@@ -48,36 +48,36 @@ export const PATCH = async (req: Request,
 
         
 
-        const kitchenRef = await getDoc(
-            doc(db, "stores", params.storeId, "kitchens", params.kitchenId)
+        const cuisineRef = await getDoc(
+            doc(db, "stores", params.storeId, "cuisines", params.cuisineId)
         )
 
-        if (kitchenRef.exists()) {
-            await updateDoc(doc(db, "stores", params.storeId, "kitchens", params.kitchenId), {
-                    ...kitchenRef.data(),
+        if (cuisineRef.exists()) {
+            await updateDoc(doc(db, "stores", params.storeId, "cuisines", params.cuisineId), {
+                    ...cuisineRef.data(),
                     name,
                    value,
                     updatedAt: serverTimestamp(),
                 }
             )
         } else {
-            return new NextResponse("Kitchen not found")
+            return new NextResponse("Cuisine not found")
         }
 
-        const kitchen = (
-            await getDoc(doc(db, "stores", params.storeId, "kitchens", params.kitchenId))
-        ).data() as Kitchen
+        const cuisine = (
+            await getDoc(doc(db, "stores", params.storeId, "cuisines", params.cuisineId))
+        ).data() as Cuisines
 
-        return NextResponse.json(kitchen);
+        return NextResponse.json(cuisine);
 
     } catch (error) {
-        console.log(`KITCHEN_PATCH:${error}`)
+        console.log(`CUISINE_PATCH:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
 export const DELETE = async (req: Request,
     { params }:
-    { params: { storeId: string, kitchenId: string } }) =>
+    { params: { storeId: string, cuisineId: string } }) =>
 {
     
     try {
@@ -93,8 +93,8 @@ export const DELETE = async (req: Request,
             return new NextResponse("Store Id is missing", {status: 400})  
         }
 
-        if (!params.kitchenId) {
-            return new NextResponse("Category Id is missing", {status: 400})  
+        if (!params.cuisineId) {
+            return new NextResponse("Cuisine Id is missing", {status: 400})  
         }
 
         const store = await getDoc(doc(db, "stores", params.storeId));
@@ -108,13 +108,13 @@ export const DELETE = async (req: Request,
 
         
 
-        const kitchenRef = doc(db, "stores", params.storeId, "kitchens", params.kitchenId);
-        await deleteDoc(kitchenRef);
+        const cuisineRef = doc(db, "stores", params.storeId, "cuisines", params.cuisineId);
+        await deleteDoc(cuisineRef);
 
-        return NextResponse.json({msg: "KITCHEN deleted"});
+        return NextResponse.json({msg: "Cuisine deleted"});
 
     } catch (error) {
-        console.log(`KITCHEN_DELETE:${error}`)
+        console.log(`CUISINE_DELETE:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
