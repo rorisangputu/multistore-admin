@@ -6,11 +6,11 @@ import { DataTable } from "@/components/ui/data-table";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { Columns, KitchenColumns } from "./columns";
+import { Columns, CuisineColumns } from "./columns";
 import ApiList from "@/components/api-list";
 
 interface KitchenClientProps {
-  data: KitchenColumns[];
+  data: CuisineColumns[];
 }
 
 const KitchenClient = ({ data }: KitchenClientProps) => {
