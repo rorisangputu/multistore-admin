@@ -103,6 +103,7 @@ const ProductForm = ({
       router.push(`/${params.storeId}/products`);
     } catch (error) {
       toast.error("Error handling products name");
+      console.log(error);
     } finally {
       router.refresh();
       setIsLoading(false);
@@ -118,6 +119,7 @@ const ProductForm = ({
       router.push(`/${params.storeId}/products`);
     } catch (error) {
       toast.error("Unable to delete product");
+      console.log(error);
     } finally {
       router.refresh();
       setIsLoading(false);
