@@ -68,7 +68,7 @@ const CategoryForm = ({ initialData }: CategoryFormProps) => {
       toast.success(toastMessage);
       router.push(`/${params.storeId}/categories`);
     } catch (error) {
-      toast.error("Unable to update store name");
+      toast.error("Unable to update category name");
     } finally {
       router.refresh();
       setIsLoading(false);
@@ -85,7 +85,7 @@ const CategoryForm = ({ initialData }: CategoryFormProps) => {
       toast.success("Category removed");
       router.push(`/${params.storeId}/categories`);
     } catch (error) {
-      toast.error("Unable to delete store");
+      toast.error("Unable to delete category");
     } finally {
       router.refresh();
       setIsLoading(false);
