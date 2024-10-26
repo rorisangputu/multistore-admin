@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 
 export const PATCH = async (req: Request,
     { params }:
-        { params: { storeId: string, billboardId: string } }) =>
+        { params: { storeId: string, categoryId: string } }) =>
 {
     
     try {
@@ -19,19 +19,23 @@ export const PATCH = async (req: Request,
             
         }
 
-        const { label, imageUrl } = body;
-        if (!label) {
-            return new NextResponse("Billboard name is missing", {status: 400})
+        const { name, billboardId, billboardLabel } = body;
+        if (!name) {
+            return new NextResponse("Category name is missing", {status: 400})
         }
-        if (!imageUrl) {
-            return new NextResponse("Image is missing", {status: 400})
+        if (!billboardId) {
+            return new NextResponse("Billboard ID is missing", {status: 400})
         }
+        if (!billboardLabel) {
+            return new NextResponse("Billboard Label is missing", {status: 400})
+        }
+
 
         if (!params.storeId) {
             return new NextResponse("Store Id is missing", {status: 400})  
         }
 
-        if (!params.billboardId) {
+        if (!params.categoryId) {
             return new NextResponse("Billboard Id is missing", {status: 400})  
         }
 
@@ -46,15 +50,16 @@ export const PATCH = async (req: Request,
 
         
 
-        const billboardRef = await getDoc(
-            doc(db, "stores", params.storeId, "billboards", params.billboardId)
+        const categoryRef = await getDoc(
+            doc(db, "stores", params.storeId, "categories", params.categoryId)
         )
 
-        if (billboardRef.exists()) {
-            await updateDoc(doc(db, "stores", params.storeId, "billboards", params.billboardId), {
-                    ...billboardRef.data(),
-                    label,
-                    imageUrl,
+        if (categoryRef.exists()) {
+            await updateDoc(doc(db, "stores", params.storeId, "categories", params.categoryId), {
+                    ...categoryRef.data(),
+                    name,
+                    billboardLabel,
+                    billboardId,
                     updatedAt: serverTimestamp(),
                 }
             )
@@ -62,20 +67,20 @@ export const PATCH = async (req: Request,
             return new NextResponse("Billboard not found")
         }
 
-        const billboard = (
-            await getDoc(doc(db, "stores", params.storeId, "billboards", params.billboardId))
+        const category = (
+            await getDoc(doc(db, "stores", params.storeId, "categories", params.categoryId))
         ).data() as Billboards
 
-        return NextResponse.json(billboard);
+        return NextResponse.json(category);
 
     } catch (error) {
-        console.log(`BILLBOARDS_POST:${error}`)
+        console.log(`CATEGORIES_PATCH:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
 export const DELETE = async (req: Request,
     { params }:
-    { params: { storeId: string, billboardId: string } }) =>
+    { params: { storeId: string, categoryId: string } }) =>
 {
     
     try {
@@ -91,8 +96,8 @@ export const DELETE = async (req: Request,
             return new NextResponse("Store Id is missing", {status: 400})  
         }
 
-        if (!params.billboardId) {
-            return new NextResponse("Billboard Id is missing", {status: 400})  
+        if (!params.categoryId) {
+            return new NextResponse("Category Id is missing", {status: 400})  
         }
 
         const store = await getDoc(doc(db, "stores", params.storeId));
@@ -106,13 +111,13 @@ export const DELETE = async (req: Request,
 
         
 
-        const billboardRef = doc(db, "stores", params.storeId, "billboards", params.billboardId);
-        await deleteDoc(billboardRef);
+        const categoryRef = doc(db, "stores", params.storeId, "categories", params.categoryId);
+        await deleteDoc(categoryRef);
 
-        return NextResponse.json({msg: "Billboard deleted"});
+        return NextResponse.json({msg: "Category deleted"});
 
     } catch (error) {
-        console.log(`BILLBOARDS_POST:${error}`)
+        console.log(`CATEGORY_DELETE:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
