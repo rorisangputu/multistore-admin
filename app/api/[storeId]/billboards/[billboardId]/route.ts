@@ -109,11 +109,7 @@ export const DELETE = async (req: Request,
         const billboardRef = doc(db, "stores", params.storeId, "billboards", params.billboardId);
         await deleteDoc(billboardRef);
 
-        const billboard = (
-            await getDoc(doc(db, "stores", params.storeId, "billboards", params.billboardId))
-        ).data() as Billboards
-
-        return NextResponse.json(billboard);
+        return NextResponse.json({msg: "Billboard deleted"});
 
     } catch (error) {
         console.log(`BILLBOARDS_POST:${error}`)
