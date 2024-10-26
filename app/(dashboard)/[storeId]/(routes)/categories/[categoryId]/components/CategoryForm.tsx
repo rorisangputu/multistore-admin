@@ -28,6 +28,7 @@ import { z } from "zod";
 
 interface CategoryFormProps {
   initialData: Categories;
+  billboards: Billboards[];
 }
 
 const formSchema = z.object({
