@@ -35,7 +35,7 @@ const formSchema = z.object({
   imageUrl: z.string().min(1),
 });
 
-const BillboardForm = ({ initialData }: BillboardFormProps) => {
+const CategoryForm = ({ initialData }: BillboardFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
@@ -158,4 +158,4 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   );
 };
 
-export default BillboardForm;
+export default CategoryForm;

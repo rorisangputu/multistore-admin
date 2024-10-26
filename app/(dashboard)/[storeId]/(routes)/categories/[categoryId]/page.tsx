@@ -1,7 +1,7 @@
 import { db } from "@/lib/firebase"
 import { Billboards } from "@/types-db"
 import { doc, getDoc } from "firebase/firestore"
-import BillboardForm from "./components/BillboardForm";
+import BillboardForm from "./components/CategoryForm";
 
 
 const BillboardPage = async ({ params }: { params: { storeId: string, billboardId: string } }) => {

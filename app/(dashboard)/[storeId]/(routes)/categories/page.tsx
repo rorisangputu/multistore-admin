@@ -1,34 +1,33 @@
 import { collection, doc, getDocs } from "firebase/firestore";
-import BillboardClient from "./components/client";
 import { db } from "@/lib/firebase";
-import { Billboards } from "@/types-db";
-import { BillboardColumns } from "./components/columns";
+import { Categories } from "@/types-db";
+import { CategoryColumns } from "./components/columns";
 import { format } from "date-fns";
+import CategoryClient from "./components/client";
 
-const BillboardsIndex = async ({ params }: { params: { storeId: string } }) => {
-  const billboardsData = (
-    await getDocs(collection(doc(db, "stores", params.storeId), "billboards"))
-  ).docs.map((doc) => doc.data()) as Billboards[];
+const CategoriesIndex = async ({ params }: { params: { storeId: string } }) => {
+  const categoriesData = (
+    await getDocs(collection(doc(db, "stores", params.storeId), "categories"))
+  ).docs.map((doc) => doc.data()) as Categories[];
 
   //console.log(billboardsData);
-  const formattedBillboards: BillboardColumns[] = billboardsData.map(
-    (item) => ({
-      id: item.id,
-      label: item.label,
-      imageUrl: item.imageUrl,
-      createdAt: item.createdAt
-        ? format(item.createdAt.toDate(), "do MMMM, yyyy")
-        : "",
-    })
-  );
+  const formattedCategories: CategoryColumns[] = categoriesData.map((item) => ({
+    id: item.id,
+    name: item.name,
+    billboardId: item.billboardId,
+    billboardLabel: item.billboardLabel,
+    createdAt: item.createdAt
+      ? format(item.createdAt.toDate(), "do MMMM, yyyy")
+      : "",
+  }));
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardClient data={formattedBillboards} />
+        <CategoryClient data={formattedCategories} />
       </div>
     </div>
   );
 };
 
-export default BillboardsIndex;
+export default CategoriesIndex;

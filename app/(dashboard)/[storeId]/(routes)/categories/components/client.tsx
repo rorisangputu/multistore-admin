@@ -6,13 +6,13 @@ import { DataTable } from "@/components/ui/data-table";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { BillboardColumns, Columns } from "./columns";
+import { CategoryColumns, Columns } from "./columns";
 
-interface BillboardClientProps {
-  data: BillboardColumns[];
+interface CategoryClientProps {
+  data: CategoryColumns[];
 }
 
-const BillboardClient = ({ data }: BillboardClientProps) => {
+const CategoryClient = ({ data }: CategoryClientProps) => {
   const params = useParams();
   const router = useRouter();
 
@@ -20,11 +20,11 @@ const BillboardClient = ({ data }: BillboardClientProps) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Billboards (${data.length})`}
-          description="Manage billboards for your store"
+          title={`Categories (${data.length})`}
+          description="Manage categories here"
         />
         <Button
-          onClick={() => router.push(`/${params.storeId}/billboards/create`)}
+          onClick={() => router.push(`/${params.storeId}/categories/create`)}
         >
           <Plus className="h-4 w-4" />
           Add New
@@ -37,4 +37,4 @@ const BillboardClient = ({ data }: BillboardClientProps) => {
   );
 };
 
-export default BillboardClient;
+export default CategoryClient;
