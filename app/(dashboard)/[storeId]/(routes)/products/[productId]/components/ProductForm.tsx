@@ -14,7 +14,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Product } from "@/types-db";
+import { Categories, Cuisines, Kitchen, Product, Sizes } from "@/types-db";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -26,6 +26,10 @@ import { z } from "zod";
 
 interface ProductFormProps {
   initialData: Product;
+  categories: Categories[];
+  sizes: Sizes[];
+  kitchen: Kitchen[];
+  cuisines: Cuisines[];
 }
 
 const formSchema = z.object({
@@ -114,7 +118,11 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input disabled={isLoading} placeholder="Product" {...field} />
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Product"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -127,7 +135,11 @@ const ProductForm = ({ initialData }: ProductFormProps) => {
                 <FormItem>
                   <FormLabel>Value</FormLabel>
                   <FormControl>
-                    <Input disabled={isLoading} placeholder="Size" {...field} />
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Product"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
