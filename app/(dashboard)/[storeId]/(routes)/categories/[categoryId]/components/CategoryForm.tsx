@@ -26,7 +26,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-interface BillboardFormProps {
+interface CategoryFormProps {
   initialData: Billboards;
 }
 
@@ -35,7 +35,7 @@ const formSchema = z.object({
   imageUrl: z.string().min(1),
 });
 
-const CategoryForm = ({ initialData }: BillboardFormProps) => {
+const CategoryForm = ({ initialData }: CategoryFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
