@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { KitchenColumns } from "./columns";
+import { CuisineColumns } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 interface CellActionProps {
-  data: KitchenColumns;
+  data: CuisineColumns;
 }
 const CellAction = ({ data }: CellActionProps) => {
   const params = useParams();
@@ -29,13 +29,13 @@ const CellAction = ({ data }: CellActionProps) => {
 
   const onDelete = async () => {
     try {
-      await axios.delete(`/api/${params.storeId}/kitchens/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/cuisines/${data.id}`);
 
       location.reload();
-      router.push(`/${params.storeId}/kitchens`);
-      toast.success("Size removed");
+      router.push(`/${params.storeId}/cuisines`);
+      toast.success("Cuisine removed");
     } catch (error) {
-      toast.error("Unable to delete size");
+      toast.error("Unable to delete cuisine");
     } finally {
       location.reload();
     }
@@ -56,7 +56,7 @@ const CellAction = ({ data }: CellActionProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/kitchens/${data.id}`)
+              router.push(`/${params.storeId}/cuisines/${data.id}`)
             }
           >
             <Edit className="h-4 w-4 mr-2" />
