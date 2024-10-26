@@ -1,7 +1,7 @@
 import { db } from "@/lib/firebase";
-import { Billboards, Categories } from "@/types-db";
+import { Categories } from "@/types-db";
 import { auth } from "@clerk/nextjs/server";
-import { addDoc, collection, deleteDoc, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { auth } from '@clerk/nextjs/server'
 import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
-import { Categories } from "@/types-db"
+import {  Product } from "@/types-db"
 
 
 export const POST = async (req : Request, {params} : {params: {storeId : string}}) => {
@@ -15,15 +15,29 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
             
         }
 
-        const { name, billboardId, billboardLabel } = body;
+        const { 
+            name,
+            price,
+            images,
+            isFeatured,
+            isArchived,
+            category,
+            size,
+            kitchen,
+            cuisine
+         } = body;
         if (!name) {
-            return new NextResponse("Category name is missing", {status: 400})
+            return new NextResponse("Product name is missing", {status: 400})
         }
-        if (!billboardId) {
-            return new NextResponse("Billboard ID is missing", {status: 400})
+        if (!price) {
+            return new NextResponse("Price is missing", {status: 400})
         }
-        if (!billboardLabel) {
-            return new NextResponse("Billboard Label is missing", {status: 400})
+        
+        if (!category) {
+            return new NextResponse("Category is missing", {status: 400})
+        }
+        if (!images || !images.length) {
+            return new NextResponse("Images is missing", {status: 400})
         }
 
         if (!params.storeId) {
@@ -39,29 +53,35 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
             }
         }
 
-        const categoryData = {
+        const productData = {
             name,
-            billboardId,
-            billboardLabel,
+            price,
+            isArchived,
+            isFeatured,
+            category,
+            kitchen,
+            size,
+            cuisine,
+            images,
             createdAt: serverTimestamp(),
         };
 
-        const categoryRef = await addDoc(
-            collection(db, "stores", params.storeId, "categories"),
-            categoryData
+        const productRef = await addDoc(
+            collection(db, "stores", params.storeId, "products"),
+            productData
         );
 
-        const id = categoryRef.id;
+        const id = productRef.id;
 
-        await updateDoc(doc(db, "stores", params.storeId, "categories", id), {
-            ...categoryData,
+        await updateDoc(doc(db, "stores", params.storeId, "products", id), {
+            ...productData,
             id,
             updatedAt: serverTimestamp()
         })
-        return NextResponse.json({ id, ...categoryData });
+        return NextResponse.json({ id, ...productData });
 
     } catch (error) {
-        console.log(`CATEGORY_POST:${error}`)
+        console.log(`PRODUCTS_POST:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
@@ -73,16 +93,16 @@ export const GET = async (req : Request, {params} : {params: {storeId : string}}
             return new NextResponse("Unauthorised", {status: 400})  
         }
 
-        const categoriesData = (
+        const productData = (
             await getDocs(
-                collection(doc(db, "stores", params.storeId), "categories")
+                collection(doc(db, "stores", params.storeId), "products")
             )
-        ).docs.map(doc => doc.data()) as Categories[];
+        ).docs.map(doc => doc.data()) as Product[];
 
-        return NextResponse.json(categoriesData);
+        return NextResponse.json(productData);
         
     } catch (error) {
-        console.log(`CATEGORIES_GET:${error}`)
+        console.log(`PRODUCTS_GET:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
