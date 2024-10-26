@@ -50,7 +50,7 @@ export const Columns: ColumnDef<ProductColumns>[] = [
     header: "Kitchen",
   },
   {
-    accessorKey: "cuisines",
+    accessorKey: "cuisine",
     header: "Cuisine",
   },
   {
