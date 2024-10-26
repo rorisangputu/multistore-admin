@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { storage } from "@/lib/firebase";
-import { Billboards } from "@/types-db";
+import { Billboards, Categories } from "@/types-db";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { deleteObject, ref } from "firebase/storage";
@@ -27,12 +27,12 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface CategoryFormProps {
-  initialData: Billboards;
+  initialData: Categories;
 }
 
 const formSchema = z.object({
-  label: z.string().min(1),
-  imageUrl: z.string().min(1),
+  name: z.string().min(1),
+  billboardId: z.string().min(1),
 });
 
 const CategoryForm = ({ initialData }: CategoryFormProps) => {
@@ -46,10 +46,10 @@ const CategoryForm = ({ initialData }: CategoryFormProps) => {
   const params = useParams();
   const router = useRouter();
 
-  const title = initialData ? "Edit Billboards" : "Create New Billboard";
-  const desc = initialData ? "Edit your billboard" : "Add a billboard";
-  const toastMessage = initialData ? "Billboard Updated" : "Billboard Created!";
-  const action = initialData ? "Save Changes" : "Create Billboard";
+  const title = initialData ? "Edit Categories" : "Create New Category";
+  const desc = initialData ? "Edit your Category" : "Add a Category";
+  const toastMessage = initialData ? "Category Updated" : "Category Created!";
+  const action = initialData ? "Save Changes" : "Create Category";
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     //console.log(data);
@@ -58,14 +58,14 @@ const CategoryForm = ({ initialData }: CategoryFormProps) => {
       setIsLoading(true);
       if (initialData) {
         await axios.patch(
-          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          `/api/${params.storeId}/categories/${params.categoryId}`,
           data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/billboards`, data);
+        await axios.post(`/api/${params.storeId}/categories`, data);
       }
       toast.success(toastMessage);
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/categories`);
     } catch (error) {
       toast.error("Unable to update store name");
     } finally {
@@ -77,8 +77,8 @@ const CategoryForm = ({ initialData }: CategoryFormProps) => {
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      const { imageUrl } = form.getValues();
-      await deleteObject(ref(storage, imageUrl)).then(async () => {
+
+      await deleteObject(ref(storage)).then(async () => {
         await axios.delete(
           `/api/${params.storeId}/billboards/${params.billboardId}`
         );
@@ -113,34 +113,17 @@ const CategoryForm = ({ initialData }: CategoryFormProps) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-8"
         >
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value ? [field.value] : []}
-                    disabled={isLoading}
-                    onChange={(url) => field.onChange(url)}
-                    onRemove={() => field.onChange("")}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="label"
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Billboard Name"
+                      placeholder="Category Name"
                       {...field}
                     />
                   </FormControl>
