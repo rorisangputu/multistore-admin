@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { Billboards } from "@/types-db";
+import { Billboards, Categories } from "@/types-db";
 import { auth } from "@clerk/nextjs/server";
 import { addDoc, collection, deleteDoc, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
@@ -69,7 +69,7 @@ export const PATCH = async (req: Request,
 
         const category = (
             await getDoc(doc(db, "stores", params.storeId, "categories", params.categoryId))
-        ).data() as Billboards
+        ).data() as Categories
 
         return NextResponse.json(category);
 
