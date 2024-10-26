@@ -78,14 +78,11 @@ const CategoryForm = ({ initialData }: CategoryFormProps) => {
   const onDelete = async () => {
     try {
       setIsLoading(true);
+      await axios.delete(
+        `/api/${params.storeId}/categories/${params.categoryId}`
+      );
 
-      await deleteObject(ref(storage)).then(async () => {
-        await axios.delete(
-          `/api/${params.storeId}/categories/${params.billboardId}`
-        );
-      });
-
-      toast.success("Billboard removed");
+      toast.success("Category removed");
       router.push(`/${params.storeId}/categories`);
     } catch (error) {
       toast.error("Unable to delete store");
