@@ -6,14 +6,14 @@ import { DataTable } from "@/components/ui/data-table";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { Columns, SizeColumns } from "./columns";
+import { Columns, ProductColumns } from "./columns";
 import ApiList from "@/components/api-list";
 
-interface SizeClientProps {
-  data: SizeColumns[];
+interface ProductClientProps {
+  data: ProductColumns[];
 }
 
-const SizeClient = ({ data }: SizeClientProps) => {
+const ProductClient = ({ data }: ProductClientProps) => {
   const params = useParams();
   const router = useRouter();
 
@@ -21,10 +21,12 @@ const SizeClient = ({ data }: SizeClientProps) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Sizes (${data.length})`}
-          description="Manage sizes here"
+          title={`Products (${data.length})`}
+          description="Manage products here"
         />
-        <Button onClick={() => router.push(`/${params.storeId}/sizes/create`)}>
+        <Button
+          onClick={() => router.push(`/${params.storeId}/products/create`)}
+        >
           <Plus className="h-4 w-4" />
           Add New
         </Button>
@@ -33,11 +35,11 @@ const SizeClient = ({ data }: SizeClientProps) => {
       <Separator />
       <DataTable columns={Columns} data={data} />
 
-      <Heading title="API" description="API Calls for Sizes" />
+      <Heading title="API" description="API Calls for Products" />
       <Separator />
-      <ApiList entityName="sizes" entityNameId="sizeId" />
+      <ApiList entityName="products" entityNameId="productId" />
     </>
   );
 };
 
-export default SizeClient;
+export default ProductClient;
