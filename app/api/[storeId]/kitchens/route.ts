@@ -2,14 +2,14 @@ import { NextResponse } from "next/server"
 import { auth } from '@clerk/nextjs/server'
 import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
-import {  Sizes } from "@/types-db"
+import { Kitchen } from "@/types-db"
 
 
 export const POST = async (req : Request, {params} : {params: {storeId : string}}) => {
     try {
         const { userId } = await auth()
         const body = await req.json()
-        console.log(body)
+        //console.log(body)
         if (!userId) {
             return new NextResponse("Unauthorised", {status: 400})
             
@@ -17,10 +17,10 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
 
         const { name, value } = body;
         if (!name) {
-            return new NextResponse("Category name is missing", {status: 400})
+            return new NextResponse("Kitchen name is missing", {status: 400})
         }
         if (!value) {
-            return new NextResponse("Billboard ID is missing", {status: 400})
+            return new NextResponse("Value is missing", {status: 400})
         }
        
 
@@ -37,25 +37,25 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
             }
         }
 
-        const sizeData = {
+        const kitchenData = {
             name,
             value,
             createdAt: serverTimestamp(),
         };
 
-        const sizeRef = await addDoc(
-            collection(db, "stores", params.storeId, "sizes"),
-            sizeData
+        const kitchenRef = await addDoc(
+            collection(db, "stores", params.storeId, "kitchens"),
+            kitchenData
         );
 
-        const id = sizeRef.id;
+        const id = kitchenRef.id;
 
-        await updateDoc(doc(db, "stores", params.storeId, "sizes", id), {
-            ...sizeData,
+        await updateDoc(doc(db, "stores", params.storeId, "kitchens", id), {
+            ...kitchenData,
             id,
             updatedAt: serverTimestamp()
         })
-        return NextResponse.json({ id, ...sizeData });
+        return NextResponse.json({ id, ...kitchenData });
 
     } catch (error) {
         console.log(`SIZE_POST:${error}`)
@@ -70,16 +70,16 @@ export const GET = async (req : Request, {params} : {params: {storeId : string}}
             return new NextResponse("Unauthorised", {status: 400})  
         }
 
-        const sizesData = (
+        const kitchensData = (
             await getDocs(
-                collection(doc(db, "stores", params.storeId), "sizes")
+                collection(doc(db, "stores", params.storeId), "kitchens")
             )
-        ).docs.map(doc => doc.data()) as Sizes[];
+        ).docs.map(doc => doc.data()) as Kitchen[];
 
-        return NextResponse.json(sizesData);
+        return NextResponse.json(kitchensData);
         
     } catch (error) {
-        console.log(`CATEGORIES_GET:${error}`)
+        console.log(`KITCHEN_GET:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }

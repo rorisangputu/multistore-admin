@@ -7,17 +7,17 @@ import CellAction from "./CellAction";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type SizeColumns = {
+export type KitchenColumns = {
   id: string;
   name: string;
   value: string;
   createdAt: string;
 };
 
-export const Columns: ColumnDef<SizeColumns>[] = [
+export const Columns: ColumnDef<KitchenColumns>[] = [
   {
     accessorKey: "name",
-    header: "Size",
+    header: "Kitchen",
   },
   {
     accessorKey: "value",
@@ -27,7 +27,7 @@ export const Columns: ColumnDef<SizeColumns>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Size
+          Value
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

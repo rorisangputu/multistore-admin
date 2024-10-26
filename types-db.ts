@@ -24,3 +24,27 @@ export interface Categories {
     createdAt: Timestamp;
     updatedAt: Timestamp;
 }
+
+export interface Sizes{
+    id: string,
+    value: string,
+    name: string,
+    createdAt: Timestamp;
+    updatedAt: Timestamp;
+}
+
+export interface Kitchen{
+    id: string,
+    value: string,
+    name: string,
+    createdAt: Timestamp;
+    updatedAt: Timestamp;
+}
+
+export interface Cuisines{
+    id: string,
+    value: string,
+    name: string,
+    createdAt: Timestamp;
+    updatedAt: Timestamp;
+}

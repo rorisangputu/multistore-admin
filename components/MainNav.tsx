@@ -33,6 +33,11 @@ const MainNav = ({
       active: pathname === `/${params.storeId}/sizes`,
     },
     {
+      href: `/${params.storeId}/kitchens`,
+      label: "Kitchens",
+      active: pathname === `/${params.storeId}/kitchens`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathname === `/${params.storeId}/settings`,

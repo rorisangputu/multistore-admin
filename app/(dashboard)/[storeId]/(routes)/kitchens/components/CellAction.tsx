@@ -1,8 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { SizeColumns } from "./columns";
-import { useState } from "react";
+import { KitchenColumns } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,12 +13,10 @@ import {
 
 import { Copy, Edit, EllipsisVertical, Trash } from "lucide-react";
 import toast from "react-hot-toast";
-import { storage } from "@/lib/firebase";
-import { deleteObject, ref } from "firebase/storage";
 import axios from "axios";
 
 interface CellActionProps {
-  data: SizeColumns;
+  data: KitchenColumns;
 }
 const CellAction = ({ data }: CellActionProps) => {
   const params = useParams();
@@ -32,10 +29,10 @@ const CellAction = ({ data }: CellActionProps) => {
 
   const onDelete = async () => {
     try {
-      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/kitchens/${data.id}`);
 
       location.reload();
-      router.push(`/${params.storeId}/sizes`);
+      router.push(`/${params.storeId}/kitchens`);
       toast.success("Size removed");
     } catch (error) {
       toast.error("Unable to delete size");
@@ -58,7 +55,9 @@ const CellAction = ({ data }: CellActionProps) => {
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
+            onClick={() =>
+              router.push(`/${params.storeId}/kitchens/${data.id}`)
+            }
           >
             <Edit className="h-4 w-4 mr-2" />
             Update

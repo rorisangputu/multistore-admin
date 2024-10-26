@@ -1,6 +1,6 @@
 import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { Categories } from "@/types-db";
+import { Sizes } from "@/types-db";
 import { SizeColumns } from "./components/columns";
 import { format } from "date-fns";
 import SizeClient from "./components/client";
@@ -8,14 +8,13 @@ import SizeClient from "./components/client";
 const SizeIndex = async ({ params }: { params: { storeId: string } }) => {
   const sizesData = (
     await getDocs(collection(doc(db, "stores", params.storeId), "sizes"))
-  ).docs.map((doc) => doc.data()) as Categories[];
+  ).docs.map((doc) => doc.data()) as Sizes[];
 
   //console.log(billboardsData);
   const formattedSizes: SizeColumns[] = sizesData.map((item) => ({
     id: item.id,
     name: item.name,
-    billboardId: item.billboardId,
-    billboardLabel: item.billboardLabel,
+    value: item.value,
     createdAt: item.createdAt
       ? format(item.createdAt.toDate(), "do MMMM, yyyy")
       : "",
