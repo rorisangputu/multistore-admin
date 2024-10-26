@@ -15,12 +15,15 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
             
         }
 
-        const { label, imageUrl } = body;
-        if (!label) {
-            return new NextResponse("Billboard name is missing", {status: 400})
+        const { name, billboardId, billboardLabel } = body;
+        if (!name) {
+            return new NextResponse("Category name is missing", {status: 400})
         }
-        if (!imageUrl) {
-            return new NextResponse("Image is missing", {status: 400})
+        if (!billboardId) {
+            return new NextResponse("Billboard ID is missing", {status: 400})
+        }
+        if (!billboardLabel) {
+            return new NextResponse("Billboard Label is missing", {status: 400})
         }
 
         if (!params.storeId) {
@@ -36,25 +39,26 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
             }
         }
 
-        const billboardData = {
-            label,
-            imageUrl,
+        const categoryData = {
+            name,
+            billboardId,
+            billboardLabel,
             createdAt: serverTimestamp(),
         };
 
-        const billboardRef = await addDoc(
-            collection(db, "stores", params.storeId, "billboards"),
-            billboardData
+        const categoryRef = await addDoc(
+            collection(db, "stores", params.storeId, "categories"),
+            categoryData
         );
 
-        const id = billboardRef.id;
+        const id = categoryRef.id;
 
         await updateDoc(doc(db, "stores", params.storeId, "billboards", id), {
-            ...billboardData,
+            ...categoryData,
             id,
             updatedAt: serverTimestamp()
         })
-        return NextResponse.json({ id, ...billboardData });
+        return NextResponse.json({ id, ...categoryData });
 
     } catch (error) {
         console.log(`BILLBOARDS_POST:${error}`)
