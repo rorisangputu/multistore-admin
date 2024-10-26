@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { BillboardColumns } from "./columns";
+import { CategoryColumns } from "./columns";
 import { useState } from "react";
 import {
   DropdownMenu,
@@ -19,7 +19,7 @@ import { deleteObject, ref } from "firebase/storage";
 import axios from "axios";
 
 interface CellActionProps {
-  data: BillboardColumns;
+  data: CategoryColumns;
 }
 const CellAction = ({ data }: CellActionProps) => {
   const params = useParams();
@@ -30,20 +30,20 @@ const CellAction = ({ data }: CellActionProps) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard id copied to clipboard");
+    toast.success("category id copied to clipboard");
   };
 
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      await deleteObject(ref(storage, data.imageUrl)).then(async () => {
-        await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      });
+
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+
       location.reload();
-      router.push(`/${params.storeId}/billboards`);
-      toast.success("Billboard removed");
+      router.push(`/${params.storeId}/categories`);
+      toast.success("Category removed");
     } catch (error) {
-      toast.error("Unable to delete billboard");
+      toast.error("Unable to delete category");
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +64,7 @@ const CellAction = ({ data }: CellActionProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/categories/${data.id}`)
             }
           >
             <Edit className="h-4 w-4 mr-2" />
