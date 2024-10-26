@@ -10,7 +10,7 @@ import CellAction from "./CellAction";
 export type ProductColumns = {
   id: string;
   name: string;
-  price: number;
+  price: string;
   qty?: number;
   images: { url: string }[];
   isFeatured: boolean;
