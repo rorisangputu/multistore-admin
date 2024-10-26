@@ -2,14 +2,14 @@ import { NextResponse } from "next/server"
 import { auth } from '@clerk/nextjs/server'
 import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, Timestamp, updateDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
-import { Billboards, Categories } from "@/types-db"
+import { Categories } from "@/types-db"
 
 
 export const POST = async (req : Request, {params} : {params: {storeId : string}}) => {
     try {
         const { userId } = await auth()
         const body = await req.json()
-
+        console.log(body)
         if (!userId) {
             return new NextResponse("Unauthorised", {status: 400})
             
