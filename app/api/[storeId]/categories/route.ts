@@ -53,7 +53,7 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
 
         const id = categoryRef.id;
 
-        await updateDoc(doc(db, "stores", params.storeId, "billboards", id), {
+        await updateDoc(doc(db, "stores", params.storeId, "categories", id), {
             ...categoryData,
             id,
             updatedAt: serverTimestamp()
@@ -61,7 +61,7 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
         return NextResponse.json({ id, ...categoryData });
 
     } catch (error) {
-        console.log(`BILLBOARDS_POST:${error}`)
+        console.log(`CATEGORY_POST:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
@@ -82,7 +82,7 @@ export const GET = async (req : Request, {params} : {params: {storeId : string}}
         return NextResponse.json(categoriesData);
         
     } catch (error) {
-        console.log(`BILLBOARDS_GET:${error}`)
+        console.log(`CATEGORIES_GET:${error}`)
         return new NextResponse("Internal Server Error", {status: 500})
     }
 }
