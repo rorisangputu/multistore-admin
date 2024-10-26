@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { auth } from '@clerk/nextjs/server'
 import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, Timestamp, updateDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
-import { Billboards } from "@/types-db"
+import { Billboards, Categories } from "@/types-db"
 
 
 export const POST = async (req : Request, {params} : {params: {storeId : string}}) => {
@@ -73,13 +73,13 @@ export const GET = async (req : Request, {params} : {params: {storeId : string}}
             return new NextResponse("Unauthorised", {status: 400})  
         }
 
-        const billboardsData = (
+        const categoriesData = (
             await getDocs(
-                collection(doc(db, "stores", params.storeId), "billboards")
+                collection(doc(db, "stores", params.storeId), "categories")
             )
-        ).docs.map(doc => doc.data()) as Billboards[];
+        ).docs.map(doc => doc.data()) as Categories[];
 
-        return NextResponse.json(billboardsData);
+        return NextResponse.json(categoriesData);
         
     } catch (error) {
         console.log(`BILLBOARDS_GET:${error}`)
