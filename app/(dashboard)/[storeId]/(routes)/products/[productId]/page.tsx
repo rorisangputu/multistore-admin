@@ -1,24 +1,26 @@
 import { db } from "@/lib/firebase";
-import { Sizes } from "@/types-db";
+import { Product } from "@/types-db";
 import { doc, getDoc } from "firebase/firestore";
-import SizeForm from "./components/SizeForm";
+import ProductForm from "./components/ProductForm";
 
-const SizePage = async ({
+const ProductPage = async ({
   params,
 }: {
-  params: { storeId: string; sizeId: string };
+  params: { storeId: string; productId: string };
 }) => {
-  const size = (
-    await getDoc(doc(db, "stores", params.storeId, "sizes", params.sizeId))
-  ).data() as Sizes;
+  const product = (
+    await getDoc(
+      doc(db, "stores", params.storeId, "products", params.productId)
+    )
+  ).data() as Product;
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <SizeForm initialData={size} />
+        <ProductForm initialData={product} />
       </div>
     </div>
   );
 };
 
-export default SizePage;
+export default ProductPage;

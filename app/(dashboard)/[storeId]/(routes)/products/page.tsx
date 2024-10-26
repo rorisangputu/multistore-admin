@@ -1,17 +1,18 @@
 import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { Sizes } from "@/types-db";
-import { SizeColumns } from "./components/columns";
+import { Product } from "@/types-db";
+import { ProductColumns } from "./components/columns";
 import { format } from "date-fns";
-import SizeClient from "./components/client";
 
-const SizeIndex = async ({ params }: { params: { storeId: string } }) => {
-  const sizesData = (
-    await getDocs(collection(doc(db, "stores", params.storeId), "sizes"))
-  ).docs.map((doc) => doc.data()) as Sizes[];
+import ProductClient from "./components/client";
+
+const ProductIndex = async ({ params }: { params: { storeId: string } }) => {
+  const productsData = (
+    await getDocs(collection(doc(db, "stores", params.storeId), "products"))
+  ).docs.map((doc) => doc.data()) as Product[];
 
   //console.log(billboardsData);
-  const formattedSizes: SizeColumns[] = sizesData.map((item) => ({
+  const formattedProducts: ProductColumns[] = productsData.map((item) => ({
     id: item.id,
     name: item.name,
     value: item.value,
@@ -23,10 +24,10 @@ const SizeIndex = async ({ params }: { params: { storeId: string } }) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <SizeClient data={formattedSizes} />
+        <ProductClient data={formattedProducts} />
       </div>
     </div>
   );
 };
 
-export default SizeIndex;
+export default ProductIndex;

@@ -1,8 +1,8 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { SizeColumns } from "./columns";
-import { useState } from "react";
+import { ProductColumns } from "./columns";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,12 +14,11 @@ import {
 
 import { Copy, Edit, EllipsisVertical, Trash } from "lucide-react";
 import toast from "react-hot-toast";
-import { storage } from "@/lib/firebase";
-import { deleteObject, ref } from "firebase/storage";
+
 import axios from "axios";
 
 interface CellActionProps {
-  data: SizeColumns;
+  data: ProductColumns;
 }
 const CellAction = ({ data }: CellActionProps) => {
   const params = useParams();
@@ -27,18 +26,18 @@ const CellAction = ({ data }: CellActionProps) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Size id copied to clipboard");
+    toast.success("Product id copied to clipboard");
   };
 
   const onDelete = async () => {
     try {
-      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/products/${data.id}`);
 
       location.reload();
-      router.push(`/${params.storeId}/sizes`);
-      toast.success("Size removed");
+      router.push(`/${params.storeId}/products`);
+      toast.success("Product removed");
     } catch (error) {
-      toast.error("Unable to delete size");
+      toast.error("Unable to products size");
     } finally {
       location.reload();
     }
@@ -58,7 +57,9 @@ const CellAction = ({ data }: CellActionProps) => {
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
+            onClick={() =>
+              router.push(`/${params.storeId}/products/${data.id}`)
+            }
           >
             <Edit className="h-4 w-4 mr-2" />
             Update
