@@ -26,7 +26,11 @@ export const Columns: ColumnDef<OrderColumns>[] = [
     header: "Image",
     cell: ({ row }) => {
       const { images } = row.original;
-      return <CellImage imageUrl={images} />;
+      return (
+        <div className="flex items-center gap-2">
+          <CellImage imageUrl={images} />
+        </div>
+      );
     },
   },
   {
