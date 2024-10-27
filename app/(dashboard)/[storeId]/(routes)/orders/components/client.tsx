@@ -7,7 +7,6 @@ import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { Columns, OrderColumns } from "./columns";
-import ApiList from "@/components/api-list";
 
 interface OrderClientProps {
   data: OrderColumns[];
@@ -32,10 +31,6 @@ const OrderClient = ({ data }: OrderClientProps) => {
 
       <Separator />
       <DataTable columns={Columns} data={data} />
-
-      <Heading title="API" description="API Calls for Orders" />
-      <Separator />
-      <ApiList entityName="orders" entityNameId="orderId" />
     </>
   );
 };
