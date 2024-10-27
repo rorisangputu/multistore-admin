@@ -94,13 +94,17 @@ export const GET = async (req : Request, {params} : {params: {storeId : string}}
             return new NextResponse("Unauthorised", {status: 400})  
         }
 
-        const productData = (
-            await getDocs(
-                collection(doc(db, "stores", params.storeId), "products")
-            )
-        ).docs.map(doc => doc.data()) as Product[];
+        //get search params from req.url
 
-        return NextResponse.json(productData);
+         
+
+        // const productData = (
+        //     await getDocs(
+        //         collection(doc(db, "stores", params.storeId), "products")
+        //     )
+        // ).docs.map(doc => doc.data()) as Product[];
+
+        //return NextResponse.json(productData);
         
     } catch (error) {
         console.log(`PRODUCTS_GET:${error}`)
