@@ -27,7 +27,7 @@ export const Columns: ColumnDef<OrderColumns>[] = [
     cell: ({ row }) => {
       const { images } = row.original;
       return (
-        <div className="flex items-center gap-2">
+        <div className="grid grid-cols-2 gap-2">
           <CellImage imageUrl={images} />
         </div>
       );
