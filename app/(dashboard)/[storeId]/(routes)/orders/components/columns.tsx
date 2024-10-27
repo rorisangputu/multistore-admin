@@ -21,39 +21,50 @@ export type OrderColumns = {
 
 export const Columns: ColumnDef<OrderColumns>[] = [
   {
-    accessorKey: "orderItem",
-    header: "Item",
+    accessorKey: "images",
+    header: "Image",
+  },
+  {
+    accessorKey: "products",
+    header: "Products",
   },
   {
     accessorKey: "phone",
     header: "Contacts",
   },
   {
-    accessorKey: "address",
-    header: "Address",
-  },
-  {
-    accessorKey: "orderStatus",
-    header: "Status",
+    accessorKey: "totalPrice",
+    header: "Total",
   },
   {
     accessorKey: "isPaid",
-    header: "Payment",
-  },
-  {
-    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Date
+          Paid
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
+  {
+    accessorKey: "orderStatus",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Order Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+
   {
     header: "Actions",
     id: "Actions",
