@@ -23,10 +23,6 @@ const OrderClient = ({ data }: OrderClientProps) => {
           title={`Orders (${data.length})`}
           description="Manage orders here"
         />
-        <Button onClick={() => router.push(`/${params.storeId}/sizes/create`)}>
-          <Plus className="h-4 w-4" />
-          Add New
-        </Button>
       </div>
 
       <Separator />
