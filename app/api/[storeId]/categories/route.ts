@@ -15,16 +15,11 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
             
         }
 
-        const { name, billboardId, billboardLabel } = body;
+        const { name } = body;
         if (!name) {
             return new NextResponse("Category name is missing", {status: 400})
         }
-        if (!billboardId) {
-            return new NextResponse("Billboard ID is missing", {status: 400})
-        }
-        if (!billboardLabel) {
-            return new NextResponse("Billboard Label is missing", {status: 400})
-        }
+        
 
         if (!params.storeId) {
             return new NextResponse("Unauthorised", {status: 400})  
@@ -41,8 +36,6 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
 
         const categoryData = {
             name,
-            billboardId,
-            billboardLabel,
             createdAt: serverTimestamp(),
         };
 

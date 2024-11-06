@@ -16,9 +16,9 @@ export type ProductColumns = {
   isFeatured: boolean;
   isArchived: boolean;
   category: string;
-  size: string;
-  kitchen: string;
-  cuisine: string;
+  // size: string;
+  // kitchen: string;
+  // cuisine: string;
   createdAt: string;
 };
 
@@ -45,18 +45,18 @@ export const Columns: ColumnDef<ProductColumns>[] = [
     accessorKey: "category",
     header: "Category",
   },
-  {
-    accessorKey: "kitchen",
-    header: "Kitchen",
-  },
-  {
-    accessorKey: "cuisine",
-    header: "Cuisine",
-  },
-  {
-    accessorKey: "size",
-    header: "Size",
-  },
+  // {
+  //   accessorKey: "kitchen",
+  //   header: "Kitchen",
+  // },
+  // {
+  //   accessorKey: "cuisine",
+  //   header: "Cuisine",
+  // },
+  // {
+  //   accessorKey: "size",
+  //   header: "Size",
+  // },
   {
     accessorKey: "isFeatured",
     header: "Featured",

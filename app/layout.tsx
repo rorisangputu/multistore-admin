@@ -4,11 +4,9 @@ import "./globals.css";
 import {
   ClerkProvider,
   SignInButton,
-  SignedIn,
   SignedOut,
-  UserButton
 } from '@clerk/nextjs'
-import { ModalProvider } from "@/providers/modalProvider";
+
 import { ToastProvider } from "@/providers/toastProvider";
 
 const geistSans = localFont({

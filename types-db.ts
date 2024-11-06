@@ -18,8 +18,6 @@ export interface Billboards{
 
 export interface Categories {
     id: string,
-    billboardId: string,
-    billboardLabel: string,
     name: string,
     createdAt: Timestamp;
     updatedAt: Timestamp;

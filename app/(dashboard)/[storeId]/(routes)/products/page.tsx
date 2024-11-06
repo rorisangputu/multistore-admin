@@ -17,13 +17,13 @@ const ProductIndex = async ({ params }: { params: { storeId: string } }) => {
     id: item.id,
     name: item.name,
     price: formatter.format(item.price),
-    kitchen: item.kitchen,
+    // kitchen: item.kitchen,
     category: item.category,
-    cuisine: item.cuisine,
+    //cuisine: item.cuisine,
     isArchived: item.isArchived,
     isFeatured: item.isFeatured,
     images: item.images,
-    size: item.size,
+    //size: item.size,
     createdAt: item.createdAt
       ? format(item.createdAt.toDate(), "do MMMM, yyyy")
       : "",

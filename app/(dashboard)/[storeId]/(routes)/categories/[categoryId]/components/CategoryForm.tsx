@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import Heading from "@/components/Heading";
@@ -11,17 +12,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Billboards, Categories } from "@/types-db";
+import { Categories } from "@/types-db";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -33,22 +27,20 @@ import { z } from "zod";
 
 interface CategoryFormProps {
   initialData: Categories;
-  billboards: Billboards[];
 }
 
 const formSchema = z.object({
   name: z.string().min(1),
-  billboardId: z.string().min(1),
 });
 
-const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
+const CategoryForm = ({ initialData }: CategoryFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+
   const params = useParams();
   const router = useRouter();
 
@@ -63,24 +55,13 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
     try {
       setIsLoading(true);
 
-      const { billboardId: formBillId } = form.getValues();
-      const matchingBillboardIds = billboards.find(
-        (item) => item.id === formBillId
-      );
-
       if (initialData) {
         await axios.patch(
           `/api/${params.storeId}/categories/${params.categoryId}`,
-          {
-            ...data,
-            billboardLabel: matchingBillboardIds?.label,
-          }
+          data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/categories`, {
-          ...data,
-          billboardLabel: matchingBillboardIds?.label,
-        });
+        await axios.post(`/api/${params.storeId}/categories`, data);
       }
       toast.success(toastMessage);
       router.push(`/${params.storeId}/categories`);
@@ -143,35 +124,6 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
                     />
                   </FormControl>
                   <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="billboardId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Billboard</FormLabel>
-                  <FormControl>
-                    <Select
-                      disabled={isLoading}
-                      onValueChange={field.onChange}
-                      value={field.value}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Billboards" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {billboards.map((billboard) => (
-                          <SelectItem key={billboard.id} value={billboard.id}>
-                            {billboard.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
                 </FormItem>
               )}
             />

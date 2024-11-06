@@ -14,8 +14,6 @@ const CategoriesIndex = async ({ params }: { params: { storeId: string } }) => {
   const formattedCategories: CategoryColumns[] = categoriesData.map((item) => ({
     id: item.id,
     name: item.name,
-    billboardId: item.billboardId,
-    billboardLabel: item.billboardLabel,
     createdAt: item.createdAt
       ? format(item.createdAt.toDate(), "do MMMM, yyyy")
       : "",

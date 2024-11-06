@@ -57,10 +57,10 @@ const formSchema = z.object({
 const ProductForm = ({
   initialData,
   categories,
-  sizes,
-  kitchens,
-  cuisines,
-}: ProductFormProps) => {
+}: // sizes,
+// kitchens,
+// cuisines,
+ProductFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -236,7 +236,7 @@ const ProductForm = ({
               )}
             />
             {/* Kitchen */}
-            <FormField
+            {/* <FormField
               control={form.control}
               name="kitchen"
               render={({ field }) => (
@@ -263,9 +263,9 @@ const ProductForm = ({
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
             {/* Cuisine */}
-            <FormField
+            {/* <FormField
               control={form.control}
               name="cuisine"
               render={({ field }) => (
@@ -292,9 +292,9 @@ const ProductForm = ({
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
             {/* Size */}
-            <FormField
+            {/* <FormField
               control={form.control}
               name="size"
               render={({ field }) => (
@@ -321,7 +321,7 @@ const ProductForm = ({
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
 
             {/* isFeatured */}
             <FormField

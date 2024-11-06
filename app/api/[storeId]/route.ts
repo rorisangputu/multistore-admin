@@ -10,6 +10,7 @@ export const PATCH = async (req : Request, {params}: {params:{storeId: string}})
     try {
         const { userId } = await auth()
         const body = await req.json()
+        console.log("Whaat?:",body);
 
         if (!userId) {
             return new NextResponse("Unauthorised", {status: 400})
