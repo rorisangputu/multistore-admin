@@ -67,7 +67,7 @@ export interface Order {
     id: string,
     isPaid: boolean,
     phone: string,
-    orderItems: Product[],
+    orderItem: Product[],
     address: string,
     orderStatus: string,
     createdAt: Timestamp,

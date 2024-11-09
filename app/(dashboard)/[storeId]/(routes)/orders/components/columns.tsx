@@ -35,7 +35,7 @@ export const Columns: ColumnDef<OrderColumns>[] = [
   },
   {
     accessorKey: "products",
-    header: "Products",
+    header: "Name",
   },
   {
     accessorKey: "phone",

@@ -9,7 +9,7 @@ interface CellImageProps {
 export const CellImage = ({ imageUrl }: CellImageProps) => {
   return (
     <>
-      {imageUrl.map((img, i) => (
+      {imageUrl?.map((img, i) => (
         <div
           key={i}
           className="overflow-hidden w-32 min-h-16 min-w-32 relative rounded-md shadow-md"

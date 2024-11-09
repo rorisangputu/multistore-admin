@@ -11,23 +11,29 @@ const OrderIndex = async ({ params }: { params: { storeId: string } }) => {
     await getDocs(collection(doc(db, "stores", params.storeId), "orders"))
   ).docs.map((doc) => doc.data()) as Order[];
 
-  //console.log(billboardsData);
+  console.log("Orders Data:", ordersData);
+  ordersData.forEach((order, index) => {
+    console.log(`Order ${index}:`, order);
+    console.log("Order Items:", order?.orderItem);
+  });
+
   const formattedOrders: OrderColumns[] = ordersData.map((item) => ({
     id: item.id,
     phone: item.phone,
     address: item.address,
     isPaid: item.isPaid,
-    products: item.orderItems.map((item) => item.name).join(","),
+    products:
+      item.orderItem?.map((item) => item.name).join(", ") || "No products",
     orderStatus: item.orderStatus,
     totalPrice: formatter.format(
-      item.orderItems.reduce((total, item) => {
+      item.orderItem?.reduce((total, item) => {
         if (item && item.qty !== undefined) {
           return total + Number(item.price * item.qty);
         }
         return total;
       }, 0)
     ),
-    images: item.orderItems.map((item) => item.images[0].url),
+    images: item.orderItem?.map((item) => item.images[0].url),
     createdAt: item.createdAt
       ? format(item.createdAt.toDate(), "do MMMM, yyyy")
       : "",
