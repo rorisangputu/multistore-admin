@@ -11,7 +11,7 @@ const OrderIndex = async ({ params }: { params: { storeId: string } }) => {
     await getDocs(collection(doc(db, "stores", params.storeId), "orders"))
   ).docs.map((doc) => doc.data()) as Order[];
 
-  console.log("Orders Data:", ordersData);
+  // console.log("Orders Data:", ordersData);
   ordersData.forEach((order, index) => {
     console.log(`Order ${index}:`, order);
     console.log("Order Items:", order?.orderItem);
@@ -24,7 +24,7 @@ const OrderIndex = async ({ params }: { params: { storeId: string } }) => {
     isPaid: item.isPaid,
     products:
       item.orderItem?.map((item) => item.name).join(", ") || "No products",
-    orderStatus: item.orderStatus,
+    orderStatus: item.order_status,
     totalPrice: formatter.format(
       item.orderItem?.reduce((total, item) => {
         if (item && item.qty !== undefined) {
@@ -38,6 +38,8 @@ const OrderIndex = async ({ params }: { params: { storeId: string } }) => {
       ? format(item.createdAt.toDate(), "do MMMM, yyyy")
       : "",
   }));
+
+  console.log("Formatted Data: ", formattedOrders);
 
   return (
     <div className="flex-col">

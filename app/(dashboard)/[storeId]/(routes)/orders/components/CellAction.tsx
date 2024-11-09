@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
@@ -41,6 +42,31 @@ const CellAction = ({ data }: CellActionProps) => {
     }
   };
 
+  const onUpdate = async (data: any) => {
+    try {
+      await axios.patch(`/api/${params.storeId}/orders/${data.id}`, data);
+      location.reload();
+      router.push(`/${params.storeId}/orders`);
+      toast.success("Orders updated");
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      router.refresh();
+    }
+  };
+  const onDelivered = async (data: any) => {
+    try {
+      await axios.patch(`/api/${params.storeId}/orders/${data.id}`, data);
+      location.reload();
+      router.push(`/${params.storeId}/orders`);
+      toast.success("Orders updated");
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      router.refresh();
+    }
+  };
+
   return (
     <>
       <DropdownMenu>
@@ -55,11 +81,22 @@ const CellAction = ({ data }: CellActionProps) => {
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/orders/${data.id}`)}
+            onClick={() =>
+              onUpdate({ id: data.id, order_status: "Delivering" })
+            }
           >
             <Edit className="h-4 w-4 mr-2" />
-            Update
+            Delivering
           </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() =>
+              onDelivered({ id: data.id, order_status: "Delivered" })
+            }
+          >
+            <Edit className="h-4 w-4 mr-2" />
+            Delivered
+          </DropdownMenuItem>
+
           <DropdownMenuItem onClick={onDelete}>
             <Trash className="h-4 w-4 mr-2" />
             Delete

@@ -69,7 +69,7 @@ export interface Order {
     phone: string,
     orderItem: Product[],
     address: string,
-    orderStatus: string,
+    order_status: string,
     createdAt: Timestamp,
     updatedAt: Timestamp,
 }
