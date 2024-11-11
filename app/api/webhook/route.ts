@@ -13,6 +13,10 @@ import {
 import { db } from '@/lib/firebase';
 
 
+
+
+
+
 export const POST = async (req: Request) => {
     const body = await req.text();
 
@@ -62,7 +66,13 @@ export const POST = async (req: Request) => {
                     updatedAt: serverTimestamp(),
             }
             );
+            
+            
         }
+
+       
+        
     }
     return new NextResponse(null, { status: 200 });
 };
+

@@ -12,10 +12,10 @@ const OrderIndex = async ({ params }: { params: { storeId: string } }) => {
   ).docs.map((doc) => doc.data()) as Order[];
 
   // console.log("Orders Data:", ordersData);
-  ordersData.forEach((order, index) => {
-    console.log(`Order ${index}:`, order);
-    console.log("Order Items:", order?.orderItem);
-  });
+  // ordersData.forEach((order, index) => {
+  //   console.log(`Order ${index}:`, order);
+  //   console.log("Order Items:", order?.orderItem);
+  // });
 
   const formattedOrders: OrderColumns[] = ordersData.map((item) => ({
     id: item.id,
@@ -39,7 +39,7 @@ const OrderIndex = async ({ params }: { params: { storeId: string } }) => {
       : "",
   }));
 
-  console.log("Formatted Data: ", formattedOrders);
+  //console.log("Formatted Data: ", formattedOrders);
 
   return (
     <div className="flex-col">
