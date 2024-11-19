@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { SizeColumns } from "./columns";
-import { useState } from "react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,8 +14,6 @@ import {
 
 import { Copy, Edit, EllipsisVertical, Trash } from "lucide-react";
 import toast from "react-hot-toast";
-import { storage } from "@/lib/firebase";
-import { deleteObject, ref } from "firebase/storage";
 import axios from "axios";
 
 interface CellActionProps {
@@ -39,6 +37,7 @@ const CellAction = ({ data }: CellActionProps) => {
       toast.success("Size removed");
     } catch (error) {
       toast.error("Unable to delete size");
+      console.log(error);
     } finally {
       location.reload();
     }

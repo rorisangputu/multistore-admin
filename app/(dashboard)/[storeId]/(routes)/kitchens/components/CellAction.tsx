@@ -36,6 +36,7 @@ const CellAction = ({ data }: CellActionProps) => {
       toast.success("Size removed");
     } catch (error) {
       toast.error("Unable to delete size");
+      console.log(error);
     } finally {
       location.reload();
     }

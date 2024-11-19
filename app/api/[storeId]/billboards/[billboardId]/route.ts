@@ -1,7 +1,7 @@
 import { db } from "@/lib/firebase";
 import { Billboards } from "@/types-db";
 import { auth } from "@clerk/nextjs/server";
-import { addDoc, collection, deleteDoc, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import {  deleteDoc, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 
@@ -38,7 +38,7 @@ export const PATCH = async (req: Request,
         const store = await getDoc(doc(db, "stores", params.storeId));
 
         if (store.exists()) {
-            let storeData = store.data();
+            const storeData = store.data();
             if (storeData?.userId !== userId) {
                 return new NextResponse("Unauthorized access", { status: 500 });
             }
@@ -98,7 +98,7 @@ export const DELETE = async (req: Request,
         const store = await getDoc(doc(db, "stores", params.storeId));
 
         if (store.exists()) {
-            let storeData = store.data();
+            const storeData = store.data();
             if (storeData?.userId !== userId) {
                 return new NextResponse("Unauthorized access", { status: 500 });
             }

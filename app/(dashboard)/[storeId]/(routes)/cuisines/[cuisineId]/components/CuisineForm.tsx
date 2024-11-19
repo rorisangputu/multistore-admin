@@ -66,6 +66,7 @@ const CuisineForm = ({ initialData }: CuisineFormProps) => {
       router.push(`/${params.storeId}/cuisines`);
     } catch (error) {
       toast.error("Error handling Cuisine name");
+      console.log(error);
     } finally {
       router.refresh();
       setIsLoading(false);
@@ -81,6 +82,7 @@ const CuisineForm = ({ initialData }: CuisineFormProps) => {
       router.push(`/${params.storeId}/cuisines`);
     } catch (error) {
       toast.error("Unable to delete cuisine");
+      console.log(error);
     } finally {
       router.refresh();
       setIsLoading(false);

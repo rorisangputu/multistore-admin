@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { auth } from '@clerk/nextjs/server'
-import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, Timestamp, updateDoc } from "firebase/firestore"
+import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 import { Billboards } from "@/types-db"
 
@@ -30,7 +30,7 @@ export const POST = async (req : Request, {params} : {params: {storeId : string}
         const store = await getDoc(doc(db, "stores", params.storeId));
 
         if (store.exists()) {
-            let storeData = store.data();
+            const storeData = store.data();
             if (storeData?.userId !== userId) {
                 return new NextResponse("Unauthorized access", { status: 500 });
             }

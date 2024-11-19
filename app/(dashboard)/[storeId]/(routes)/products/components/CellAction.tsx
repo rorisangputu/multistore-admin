@@ -38,6 +38,7 @@ const CellAction = ({ data }: CellActionProps) => {
       toast.success("Product removed");
     } catch (error) {
       toast.error("Unable to products size");
+      console.log(error);
     } finally {
       location.reload();
     }

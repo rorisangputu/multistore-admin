@@ -105,7 +105,7 @@ export const GET = async (req : Request, {params} : {params: {storeId : string}}
 
         let productQuery;
 
-        let queryConstraints = []
+        const queryConstraints = []
 
         if (searchParams.has("size")) {
             queryConstraints.push(where("size", "==", searchParams.get("size")))

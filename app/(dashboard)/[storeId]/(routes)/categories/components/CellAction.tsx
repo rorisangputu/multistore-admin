@@ -14,8 +14,6 @@ import {
 
 import { Copy, Edit, EllipsisVertical, Trash } from "lucide-react";
 import toast from "react-hot-toast";
-import { storage } from "@/lib/firebase";
-import { deleteObject, ref } from "firebase/storage";
 import axios from "axios";
 
 interface CellActionProps {
@@ -26,7 +24,6 @@ const CellAction = ({ data }: CellActionProps) => {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
@@ -44,6 +41,7 @@ const CellAction = ({ data }: CellActionProps) => {
       toast.success("Category removed");
     } catch (error) {
       toast.error("Unable to delete category");
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +70,7 @@ const CellAction = ({ data }: CellActionProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onDelete}>
             <Trash className="h-4 w-4 mr-2" />
-            Delete
+            {isLoading ? "Deleting" : "Delete"}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

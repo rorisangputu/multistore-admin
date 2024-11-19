@@ -66,6 +66,7 @@ const SizeForm = ({ initialData }: SizeFormProps) => {
       router.push(`/${params.storeId}/sizes`);
     } catch (error) {
       toast.error("Error handling sizes name");
+      console.log(error);
     } finally {
       router.refresh();
       setIsLoading(false);
@@ -81,6 +82,7 @@ const SizeForm = ({ initialData }: SizeFormProps) => {
       router.push(`/${params.storeId}/sizes`);
     } catch (error) {
       toast.error("Unable to delete size");
+      console.log(error);
     } finally {
       router.refresh();
       setIsLoading(false);

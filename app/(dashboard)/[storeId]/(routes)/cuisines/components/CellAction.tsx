@@ -36,6 +36,7 @@ const CellAction = ({ data }: CellActionProps) => {
       toast.success("Cuisine removed");
     } catch (error) {
       toast.error("Unable to delete cuisine");
+      console.log(error);
     } finally {
       location.reload();
     }
