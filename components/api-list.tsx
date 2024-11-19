@@ -1,7 +1,7 @@
 "use client";
 
 import { useOrigin } from "@/hooks/use-origin";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import ApiAlert from "./api-alert";
 
 interface ApiListProps {
@@ -9,7 +9,7 @@ interface ApiListProps {
   entityNameId: string;
 }
 const ApiList = ({ entityName, entityNameId }: ApiListProps) => {
-  const router = useRouter();
+  //const router = useRouter();
   const origin = useOrigin();
   const params = useParams();
 
@@ -20,7 +20,6 @@ const ApiList = ({ entityName, entityNameId }: ApiListProps) => {
         title="GET"
         variant="public"
         description={`${baseUrl}/${entityName}`}
-        
       />
       <ApiAlert
         title="GET"
