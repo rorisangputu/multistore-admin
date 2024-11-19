@@ -67,6 +67,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
       router.push(`/${params.storeId}/billboards`);
     } catch (error) {
       toast.error("Unable to update store name");
+      console.log(error);
     } finally {
       router.refresh();
       setIsLoading(false);
@@ -87,6 +88,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
       router.push(`/${params.storeId}/billboards`);
     } catch (error) {
       toast.error("Unable to delete store");
+      console.log(error);
     } finally {
       router.refresh();
       setIsLoading(false);

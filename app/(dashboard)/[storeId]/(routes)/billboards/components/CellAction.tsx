@@ -26,7 +26,6 @@ const CellAction = ({ data }: CellActionProps) => {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
@@ -44,6 +43,7 @@ const CellAction = ({ data }: CellActionProps) => {
       toast.success("Billboard removed");
     } catch (error) {
       toast.error("Unable to delete billboard");
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +72,7 @@ const CellAction = ({ data }: CellActionProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onDelete}>
             <Trash className="h-4 w-4 mr-2" />
-            Delete
+            {isLoading ? "Deleting" : "Delete"}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
